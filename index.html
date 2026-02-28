@@ -4,20 +4,12 @@
 <meta charset="UTF-8">
 <title>Kaito.gg</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-
-<!-- Global theme CSS -->
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<!-- Backgrounds -->
 <div class="bg"></div>
-<div class="aurora-bg"></div>
 
-<!-- Topbar / Navbar -->
 <div class="topbar">
   <div style="display:flex;align-items:center;">
     <div class="logo">Kaito<span>.gg</span></div>
@@ -31,65 +23,20 @@
   </div>
 </div>
 
-<!-- Main Page Content -->
 <div class="page">
   <div class="card">
     <h1>Kaito (カイト)</h1>
     <p>An all-in-one Discord utility bot packed with moderation, fun, and an economy system to keep your community active and engaged!</p>
-    <a href="#" class="btn">Login with Discord</a>
-  </div>
-
-  <div class="card">
-    <h2>💎 Kaito Premium</h2>
-    <p>Unlock powerful premium features including advanced moderation, boosted economy rewards, priority support, and exclusive commands.</p>
-    <ul>
-      <li>⚡ Faster bot response</li>
-      <li>🛡️ Advanced moderation tools</li>
-      <li>💰 Economy boosts</li>
-      <li>⭐ Priority support</li>
-    </ul>
-    <a href="#" class="btn">Buy Premium</a>
-  </div>
-
-  <div class="card">
-    <h2>🤖 Invite Kaito</h2>
-    <p>Add Kaito to your Discord server and start managing your community like a pro.</p>
-    <a href="#" class="btn">Invite Bot</a>
+    <br>
+    <button class="btn">Login with Discord</button>
   </div>
 </div>
 
-<script>
-// ===== SCROLL REVEAL =====
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add('reveal');
-  });
-}, { threshold: 0.18 });
-
-document.querySelectorAll('.card').forEach(el => observer.observe(el));
-
-// ===== FLOATING PARTICLES =====
-for (let i = 0; i < 30; i++) {
-  const p = document.createElement('div');
-  p.className = 'particle';
-  p.style.left = Math.random() * 100 + 'vw';
-  p.style.animationDuration = (8 + Math.random() * 12) + 's';
-  p.style.opacity = Math.random() * 0.45;
-  document.body.appendChild(p);
-}
-
-// ===== NAVBAR SHRINK ON SCROLL =====
-const topbar = document.querySelector('.topbar');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 20) {
-    topbar.style.padding = '12px 40px';
-    topbar.style.background = 'rgba(10,15,25,0.75)';
-  } else {
-    topbar.style.padding = '18px 40px';
-    topbar.style.background = 'rgba(10,15,25,0.55)';
-  }
-});
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
+
+
+
+
+
