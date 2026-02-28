@@ -26,6 +26,15 @@ body{
   100%{background-position:0% 50%}
 }
 
+/* ===== PARTICLES ===== */
+canvas{
+  position:fixed;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  opacity:.45;
+}
+
 /* ===== NAVBAR ===== */
 .topbar{
   position:fixed;
@@ -97,3 +106,4 @@ body{
   transition:.3s;
 }
 .btn:hover{background-position:right;transform:scale(1.05)}
+
