@@ -1,59 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Kaito.gg</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>Kaito.gg – All‑in‑one Discord Utility Bot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Meta description for SEO -->
+  <meta name="description" content="Kaito.gg is an all-in-one Discord utility bot with powerful moderation, fun commands, and an engaging economy system for your community.">
+
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<div class="bg"></div>
+  <div class="bg" aria-hidden="true"></div>
 
-<div class="topbar">
-  <div style="display:flex;align-items:center;">
-    <div class="logo">Kaito<span>.gg</span></div>
-    <div class="premium">Premium</div>
-  </div>
-  <div class="nav">
-    <a href="index.html">Home</a>
-    <a href="dashboard.html">Dashboard</a>
-    <a href="commands.html">Commands</a>
-    <a href="support.html">Support</a>
-  </div>
-</div>
+  <header class="topbar">
+    <div class="topbar-left">
+      <a href="index.html" class="logo" aria-label="Kaito.gg home">
+        Kaito<span>.gg</span>
+      </a>
+      <span class="badge badge-premium">Premium</span>
+    </div>
 
-<div class="page">
-  <div class="card">
-    <h1>Kaito (カイト)</h1>
-    <p>An all-in-one Discord utility bot packed with moderation, fun, and an economy system to keep your community active and engaged!</p>
-    <br>
-    <button class="btn">Login with Discord</button>
-  </div>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="dashboard.html" class="nav-link">Dashboard</a>
+      <a href="commands.html" class="nav-link">Commands</a>
+      <a href="support.html" class="nav-link">Support</a>
+    </nav>
+  </header>
 
-  <!-- PREMIUM SECTION -->
-  <div class="card" style="margin-top:30px;">
-    <h2>💎 Kaito Premium</h2>
-    <p>Unlock powerful premium features including advanced moderation, boosted economy rewards, priority support, and exclusive commands.</p>
-    <ul style="text-align:left; max-width:500px; margin:15px auto;">
-      <li>⚡ Faster bot response</li>
-      <li>🛡️ Advanced moderation tools</li>
-      <li>💰 Economy boosts</li>
-      <li>⭐ Priority support</li>
-    </ul>
-    <button class="btn">Buy Premium</button>
-  </div>
+  <main class="page">
+    <!-- HERO -->
+    <section class="card hero">
+      <h1>Kaito (カイト) – Your all‑in‑one Discord utility bot</h1>
+      <p>
+        Keep your server safe, fun, and active with moderation tools, mini‑games, and a fully‑featured economy system.
+      </p>
 
-  <!-- INVITE SECTION -->
-  <div class="card" style="margin-top:30px;">
-    <h2>🤖 Invite Kaito</h2>
-    <p>Add Kaito to your Discord server and start managing your community like a pro.</p>
-    <button class="btn">Invite Bot</button>
-  </div>
+      <div class="hero-actions">
+        <a href="/auth/discord" class="btn btn-primary">
+          Login with Discord
+        </a>
+        <a href="#invite" class="btn btn-secondary">
+          Invite Kaito
+        </a>
+      </div>
 
-</div>
+      <p class="hero-note">
+        No setup hassle – invite Kaito and start managing your community in seconds.
+      </p>
+    </section>
 
-<script src="script.js"></script>
+    <!-- PREMIUM SECTION -->
+    <section class="card" aria-labelledby="premium-title">
+      <h2 id="premium-title">💎 Kaito Premium</h2>
+      <p>
+        Unlock advanced features for growing communities: smarter moderation, boosted economy rewards, faster responses, and priority support.
+      </p>
+
+      <ul class="feature-list">
+        <li>⚡ Faster bot responses during peak hours</li>
+        <li>🛡️ Advanced moderation tools and automations</li>
+        <li>💰 Enhanced economy rewards and multipliers</li>
+        <li>⭐ Direct access to priority support</li>
+      </ul>
+
+      <a href="/premium" class="btn btn-primary">
+        Buy Premium
+      </a>
+    </section>
+
+    <!-- INVITE SECTION -->
+    <section id="invite" class="card" aria-labelledby="invite-title">
+      <h2 id="invite-title">🤖 Invite Kaito</h2>
+      <p>
+        Add Kaito to your Discord server and manage moderation, fun, and rewards from a single powerful bot.
+      </p>
+
+      <a href="/invite" class="btn btn-primary">
+        Invite Bot
+      </a>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
 
