@@ -4,11 +4,238 @@
 <meta charset="UTF-8">
 <title>Kaito.gg</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="styles.css">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+/* ===== RESET ===== */
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Inter',sans-serif;
+  background:#06090f;
+  color:#ffffff;
+  overflow-x:hidden;
+}
+
+/* ===== BLUE/BLACK AURORA BACKDROP ===== */
+.aurora-bg{
+  position:fixed;
+  inset:-30% -20% auto -20%;
+  height:70vh;
+  background:linear-gradient(120deg, rgba(37,99,235,0.18), rgba(59,130,246,0.18), rgba(14,165,233,0.12));
+  filter:blur(90px);
+  animation:auroraFlow 20s ease-in-out infinite alternate;
+  z-index:-2;
+}
+
+@keyframes auroraFlow{
+  0%{transform:translateX(-10%) translateY(0) scale(1)}
+  100%{transform:translateX(10%) translateY(-12%) scale(1.25)}
+}
+
+/* ===== CALM BLUE GRADIENT BG ===== */
+.bg{
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 20%, #1e40af33, transparent 40%),
+    radial-gradient(circle at 80% 60%, #2563eb33, transparent 40%),
+    linear-gradient(180deg,#05070c,#0b1220);
+  z-index:-3;
+}
+
+/* subtle grid glass effect */
+.bg::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(96,165,250,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(96,165,250,0.07) 1px, transparent 1px);
+  background-size:70px 70px;
+  opacity:.35;
+}
+
+/* ===== TOPBAR ===== */
+.topbar{
+  color:#ffffff;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 40px;
+  backdrop-filter:blur(18px);
+  background:rgba(10,15,25,0.55);
+  border-bottom:1px solid rgba(96,165,250,0.18);
+  box-shadow:0 10px 40px rgba(0,0,0,0.5);
+}
+
+.logo{
+  font-size:26px;
+  font-weight:800;
+  letter-spacing:0.5px;
+  color:#ffffff;
+}
+.logo span{color:#60a5fa}
+
+.premium{
+  margin-left:12px;
+  padding:4px 10px;
+  font-size:12px;
+  border-radius:999px;
+  background:linear-gradient(90deg,#3b82f6,#2563eb);
+  color:#ffffff;
+  animation:none;
+}
+
+/* removed broken glow keyframes */100%{box-shadow:none}}
+  50%{box-shadow:0 0 18px #60a5faaa}
+}
+
+.nav{
+  display:flex;
+  align-items:center;
+}
+
+.nav a{
+  margin-left:26px;
+  color:#ffffff;
+  text-decoration:none;
+  font-weight:500;
+  padding:8px 14px;
+  border-radius:10px;
+  transition:.25s;
+}
+
+/* subtle professional hover */
+.nav a:hover{
+  color:#93c5fd;
+  background:rgba(59,130,246,0.12);
+}
+
+/* active page state */
+.nav a.active{
+  background:rgba(59,130,246,0.18);
+  color:#ffffff;
+  box-shadow:0 4px 14px rgba(37,99,235,0.25);
+}
+
+/* ===== PAGE LAYOUT ===== */
+.page{
+  padding:80px 20px 100px;
+  max-width:1100px;
+  margin:auto;
+}
+
+/* ===== CARD ===== */
+.card{
+  opacity:0;
+  transform:translateY(40px) scale(.98);
+  background:rgba(15,23,42,0.55);
+  border:1px solid rgba(96,165,250,0.18);
+  backdrop-filter:blur(22px);
+  border-radius:22px;
+  padding:48px 30px;
+  text-align:center;
+  margin-bottom:30px;
+  box-shadow:0 25px 80px rgba(0,0,0,0.65);
+  transition:.35s ease;
+  position:relative;
+  overflow:hidden;
+}
+
+/* glass shine */
+.card::before{display:none;}
+
+.card:hover::before{display:none;}
+
+.card:hover{
+  transform:translateY(-6px) scale(1.01);
+  border-color:#60a5fa55;
+}
+
+.card h1{
+  font-size:42px;
+  margin-bottom:12px;
+  font-weight:800;
+}
+
+.card h2{
+  font-size:30px;
+  margin-bottom:10px;
+}
+
+.card p{
+  color:#ffffff;
+  max-width:700px;
+  margin:auto;
+}
+
+/* ===== BUTTON ===== */
+.btn{
+  display:inline-block;
+  margin-top:20px;
+  padding:14px 28px;
+  border-radius:12px;
+  font-weight:600;
+  text-decoration:none;
+  color:white;
+  background:linear-gradient(135deg,#3b82f6,#2563eb);
+  box-shadow:0 12px 30px rgba(37,99,235,0.45);
+  transition:.25s ease;
+  position:relative;
+  overflow:hidden;
+}
+
+.btn::after{display:none;}
+
+.btn:hover::after{display:none;}
+
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 14px 40px #60a5fa88;
+}
+
+/* ===== FEATURE LIST ===== */
+ul{
+  text-align:left;
+  max-width:500px;
+  margin:18px auto;
+  color:#ffffff;
+  line-height:1.7;
+}
+
+/* ===== FLOATING PARTICLES ===== */
+.particle{
+  position:fixed;
+  width:6px;
+  height:6px;
+  background:#60a5fa;
+  border-radius:50%;
+  opacity:.35;
+  animation:float linear infinite;
+}
+
+@keyframes float{
+  from{transform:translateY(100vh)}
+  to{transform:translateY(-10vh)}
+}
+
+/* ===== MOBILE ===== */
+/* ===== SCROLL REVEAL ===== */
+.reveal{opacity:1 !important; transform:translateY(0) scale(1) !important;}
+
+@media(max-width:700px){
+  .card h1{font-size:30px}
+  .topbar{padding:16px 18px}
+  .nav{display:none}
+}
+</style>
 </head>
 <body>
 
 <div class="bg"></div>
+<div class="aurora-bg"></div>
 
 <div class="topbar">
   <div style="display:flex;align-items:center;">
@@ -27,34 +254,62 @@
   <div class="card">
     <h1>Kaito (カイト)</h1>
     <p>An all-in-one Discord utility bot packed with moderation, fun, and an economy system to keep your community active and engaged!</p>
-    <br>
-    <button class="btn">Login with Discord</button>
+    <a href="#" class="btn">Login with Discord</a>
   </div>
 
-  <!-- PREMIUM SECTION -->
-  <div class="card" style="margin-top:30px;">
+  <div class="card">
     <h2>💎 Kaito Premium</h2>
     <p>Unlock powerful premium features including advanced moderation, boosted economy rewards, priority support, and exclusive commands.</p>
-    <ul style="text-align:left; max-width:500px; margin:15px auto;">
+    <ul>
       <li>⚡ Faster bot response</li>
       <li>🛡️ Advanced moderation tools</li>
       <li>💰 Economy boosts</li>
       <li>⭐ Priority support</li>
     </ul>
-    <button class="btn">Buy Premium</button>
+    <a href="#" class="btn">Buy Premium</a>
   </div>
 
-  <!-- INVITE SECTION -->
-  <div class="card" style="margin-top:30px;">
+  <div class="card">
     <h2>🤖 Invite Kaito</h2>
     <p>Add Kaito to your Discord server and start managing your community like a pro.</p>
-    <button class="btn">Invite Bot</button>
+    <a href="#" class="btn">Invite Bot</a>
   </div>
-
 </div>
 
-<script src="script.js"></script>
+<script>
+// ===== SCROLL REVEAL =====
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('reveal');
+    }
+  });
+},{threshold:0.18});
+
+document.querySelectorAll('.card').forEach(el=>observer.observe(el));
+
+// ===== PARTICLES =====
+for(let i=0;i<30;i++){
+  const p=document.createElement('div');
+  p.className='particle';
+  p.style.left=Math.random()*100+'vw';
+  p.style.animationDuration=(8+Math.random()*12)+'s';
+  p.style.opacity=Math.random()*0.45;
+  document.body.appendChild(p);
+}
+
+// ===== NAVBAR SHRINK ON SCROLL =====
+const topbar=document.querySelector('.topbar');
+window.addEventListener('scroll',()=>{
+  if(window.scrollY>20){
+    topbar.style.padding='12px 40px';
+    topbar.style.background='rgba(10,15,25,0.75)';
+  }else{
+    topbar.style.padding='18px 40px';
+    topbar.style.background='rgba(10,15,25,0.55)';
+  }
+});</script>
+
 </body>
 </html>
-
 
