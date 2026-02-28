@@ -20,6 +20,15 @@
   margin: 0 auto;
 }
 
+/* ===== HERO BUTTON ROW ===== */
+.hero-buttons {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 22px;
+}
+
 /* ===== BUTTON SYSTEM ===== */
 .btn {
   position: relative;
@@ -121,8 +130,9 @@
       system to keep your community active and engaged.
     </p>
 
-    <div style="margin-top:22px;">
+    <div class="hero-buttons">
       <button class="btn">🔐 Login with Discord</button>
+      <button class="btn btn-invite">🚀 Invite Bot</button>
     </div>
   </div>
 
@@ -142,16 +152,6 @@
     </ul>
 
     <button class="btn btn-premium">💎 Buy Premium</button>
-  </div>
-
-  <!-- INVITE -->
-  <div class="card section-space">
-    <h2>🤖 Invite Kaito</h2>
-    <p>
-      Add Kaito to your Discord server and start managing your community like a pro.
-    </p>
-
-    <button class="btn btn-invite">🚀 Invite Bot</button>
   </div>
 
 </div>
