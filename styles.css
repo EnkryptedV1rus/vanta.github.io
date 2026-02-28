@@ -9,11 +9,11 @@
 
 :root{
   --bg-dark:#030303;
-  --bg-card:rgba(255,255,255,.045);
+  --bg-card:rgba(30,0,50,.07);
   --border-soft:rgba(255,255,255,.08);
-  --accent:#ff3b5c;
-  --accent-2:#ff0000;
-  --text-dim:#a8a8a8;
+  --accent:#6c5ce7; /* Purple */
+  --accent-2:#00a8ff; /* Blue */
+  --text-dim:#a8a8ff;
 }
 
 body{
@@ -34,7 +34,7 @@ body{
   background:
     radial-gradient(
       circle at var(--x,50%) var(--y,50%),
-      rgba(255,0,60,.18),
+      rgba(108,92,231,.18), /* purple glow */
       transparent 45%
     ),
     linear-gradient(140deg,#030303,#0a0a0a,#030303);
@@ -59,8 +59,8 @@ body{
   height:64px;
   backdrop-filter:blur(22px) saturate(140%);
   -webkit-backdrop-filter:blur(22px) saturate(140%);
-  background:rgba(8,8,8,.75);
-  border-bottom:1px solid rgba(255,255,255,.06);
+  background:rgba(8,8,20,.75);
+  border-bottom:1px solid rgba(108,92,231,.06);
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -79,7 +79,7 @@ body{
 
 .logo span{
   color:var(--accent);
-  text-shadow:0 0 12px rgba(255,59,92,.6);
+  text-shadow:0 0 12px rgba(108,92,231,.6);
 }
 
 .premium{
@@ -87,11 +87,11 @@ body{
   font-weight:800;
   padding:6px 14px;
   border-radius:999px;
-  background:linear-gradient(135deg,#b9f2ff,#ffffff,#9adfff);
-  color:#000;
+  background:linear-gradient(135deg,#6c5ce7,#00a8ff,#6c5ce7);
+  color:#fff;
   box-shadow:
-    0 0 18px rgba(185,242,255,.55),
-    inset 0 0 6px rgba(255,255,255,.6);
+    0 0 18px rgba(108,92,231,.55),
+    inset 0 0 6px rgba(0,168,255,.6);
   margin-left:14px;
   letter-spacing:.5px;
 }
@@ -156,8 +156,8 @@ body{
 /* subtle hover lift */
 .card:hover{
   transform:translateY(-4px);
-  border-color:rgba(255,255,255,.14);
-  box-shadow:0 20px 40px rgba(0,0,0,.45);
+  border-color:rgba(108,92,231,.14);
+  box-shadow:0 20px 40px rgba(0,0,50,.45);
 }
 
 /* ===== BUTTON ===== */
@@ -179,13 +179,13 @@ body{
     transform .18s ease,
     background-position .4s ease,
     box-shadow .25s ease;
-  box-shadow:0 10px 25px rgba(255,0,0,.25);
+  box-shadow:0 10px 25px rgba(108,92,231,.25);
 }
 
 .btn:hover{
   background-position:right;
   transform:scale(1.06);
-  box-shadow:0 14px 40px rgba(255,0,0,.45);
+  box-shadow:0 14px 40px rgba(108,92,231,.45);
 }
 
 .btn:active{
