@@ -5,6 +5,94 @@
 <title>Kaito.gg</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="styles.css">
+
+<style>
+/* ===== HERO ===== */
+.hero-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.hero-desc {
+  opacity: .8;
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+/* ===== BUTTON SYSTEM ===== */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 26px;
+  border-radius: 14px;
+  border: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all .25s ease;
+  background: linear-gradient(135deg,#5865F2,#7c8cff);
+  color: white;
+  box-shadow: 0 12px 30px rgba(88,101,242,.35);
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 45px rgba(88,101,242,.45);
+}
+
+.btn:active {
+  transform: translateY(0) scale(.96);
+}
+
+/* premium variant */
+.btn-premium {
+  background: linear-gradient(135deg,#f59e0b,#fbbf24);
+  box-shadow: 0 12px 30px rgba(245,158,11,.35);
+}
+
+/* invite variant */
+.btn-invite {
+  background: linear-gradient(135deg,#22c55e,#4ade80);
+  box-shadow: 0 12px 30px rgba(34,197,94,.35);
+}
+
+/* ===== FEATURE LIST ===== */
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px auto;
+  max-width: 520px;
+  text-align: left;
+}
+
+.feature-list li {
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: all .2s ease;
+}
+
+.feature-list li:hover {
+  border-color: #60a5fa;
+  transform: translateX(4px);
+}
+
+/* ===== CARD POLISH ===== */
+.card {
+  text-align: center;
+}
+
+.section-space {
+  margin-top: 32px;
+}
+</style>
 </head>
 <body>
 
@@ -16,7 +104,7 @@
     <div class="premium">Premium</div>
   </div>
   <div class="nav">
-    <a href="index.html">Home</a>
+    <a href="index.html" class="active">Home</a>
     <a href="dashboard.html">Dashboard</a>
     <a href="commands.html">Commands</a>
     <a href="support.html">Support</a>
@@ -24,31 +112,46 @@
 </div>
 
 <div class="page">
+
+  <!-- HERO -->
   <div class="card">
-    <h1>Kaito (カイト)</h1>
-    <p>An all-in-one Discord utility bot packed with moderation, fun, and an economy system to keep your community active and engaged!</p>
-    <br>
-    <button class="btn">Login with Discord</button>
+    <h1 class="hero-title">Kaito (カイト)</h1>
+    <p class="hero-desc">
+      An all-in-one Discord utility bot packed with moderation, fun, and an economy
+      system to keep your community active and engaged.
+    </p>
+
+    <div style="margin-top:22px;">
+      <button class="btn">🔐 Login with Discord</button>
+    </div>
   </div>
 
-  <!-- PREMIUM SECTION -->
-  <div class="card" style="margin-top:30px;">
+  <!-- PREMIUM -->
+  <div class="card section-space">
     <h2>💎 Kaito Premium</h2>
-    <p>Unlock powerful premium features including advanced moderation, boosted economy rewards, priority support, and exclusive commands.</p>
-    <ul style="text-align:left; max-width:500px; margin:15px auto;">
+    <p>
+      Unlock powerful premium features including advanced moderation,
+      boosted economy rewards, priority support, and exclusive commands.
+    </p>
+
+    <ul class="feature-list">
       <li>⚡ Faster bot response</li>
       <li>🛡️ Advanced moderation tools</li>
       <li>💰 Economy boosts</li>
       <li>⭐ Priority support</li>
     </ul>
-    <button class="btn">Buy Premium</button>
+
+    <button class="btn btn-premium">💎 Buy Premium</button>
   </div>
 
-  <!-- INVITE SECTION -->
-  <div class="card" style="margin-top:30px;">
+  <!-- INVITE -->
+  <div class="card section-space">
     <h2>🤖 Invite Kaito</h2>
-    <p>Add Kaito to your Discord server and start managing your community like a pro.</p>
-    <button class="btn">Invite Bot</button>
+    <p>
+      Add Kaito to your Discord server and start managing your community like a pro.
+    </p>
+
+    <button class="btn btn-invite">🚀 Invite Bot</button>
   </div>
 
 </div>
