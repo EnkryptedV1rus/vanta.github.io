@@ -5,6 +5,70 @@
 <title>Commands • VANTA</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="styles.css">
+
+<style>
+/* ===== commands page extras ===== */
+
+.search-box{
+  margin-bottom:24px;
+}
+
+.search-box input{
+  width:100%;
+  padding:14px 16px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.08);
+  background:#080808;
+  color:#fff;
+  outline:none;
+  font-size:14px;
+}
+
+.command-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:10px;
+  margin-top:16px;
+}
+
+.command{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  padding:10px 12px;
+  border-radius:10px;
+  font-size:13px;
+  cursor:pointer;
+  transition:.18s ease;
+  position:relative;
+}
+
+.command:hover{
+  border-color:rgba(255,60,90,.6);
+  transform:translateY(-2px);
+  background:rgba(255,60,90,.08);
+}
+
+.command span{
+  color:#ff4d6d;
+  font-weight:700;
+}
+
+/* copy tooltip */
+.command::after{
+  content:"click to copy";
+  position:absolute;
+  right:10px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:10px;
+  opacity:.5;
+}
+
+/* category spacing */
+.card h2{
+  margin-bottom:10px;
+}
+</style>
 </head>
 <body>
 
@@ -24,62 +88,103 @@
 </div>
 
 <div class="page">
-  <div class="card">
+
+  <!-- 🔍 SEARCH -->
+  <div class="card search-box">
+    <input id="search" placeholder="Search commands… (try: balance, ban, meme)">
+  </div>
+
+  <!-- 💰 ECONOMY -->
+  <div class="card command-category">
     <h2>💰 Economy Commands</h2>
-    <p>?balance — check money</p>
-    <p>?work — earn coins</p>
-    <p>?daily — claim daily reward</p>
-    <p>?shop — view items for sale</p>
-    <p>?buy — purchase an item</p>
-    <p>?inventory — view your items</p>
-    <p>?give — give coins to another user</p>
-    <p>?leaderboard — see top players</p>
-    <p>?bank — manage your bank</p>
-    <p>?steal — rob another user</p>
-    <p>?gamble — risk coins for double or nothing</p>
-    <p>?fish — go fishing (requires rod)</p>
-    <p>?crime — commit a crime for big rewards</p>
-    <p>?slots — play the slot machine</p>
-    <p>?interest — earn interest on bank savings</p>
-    <p>?use — use an item from inventory</p>
+    <div class="command-grid">
+      <div class="command"><span>?balance</span> — check money</div>
+      <div class="command"><span>?work</span> — earn coins</div>
+      <div class="command"><span>?daily</span> — claim daily reward</div>
+      <div class="command"><span>?shop</span> — view items</div>
+      <div class="command"><span>?buy</span> — purchase item</div>
+      <div class="command"><span>?inventory</span> — view items</div>
+      <div class="command"><span>?give</span> — send coins</div>
+      <div class="command"><span>?leaderboard</span> — top players</div>
+      <div class="command"><span>?bank</span> — manage bank</div>
+      <div class="command"><span>?steal</span> — rob user</div>
+      <div class="command"><span>?gamble</span> — double or nothing</div>
+      <div class="command"><span>?fish</span> — go fishing</div>
+      <div class="command"><span>?crime</span> — risky reward</div>
+      <div class="command"><span>?slots</span> — slot machine</div>
+      <div class="command"><span>?interest</span> — bank interest</div>
+      <div class="command"><span>?use</span> — use item</div>
+    </div>
   </div>
-  
-  <div class="card">
+
+  <!-- 🛡️ MOD -->
+  <div class="card command-category">
     <h2>🛡️ Moderation Commands</h2>
-    <p>?ban — ban a user</p>
-    <p>?kick — kick a user</p>
-    <p>?purge — delete messages</p>
-    <p>?warn — warn a user</p>
-    <p>?warnings — view user warnings</p>
-    <p>?clearwarnings — clear all warnings for a user</p>
-    <p>?mute — timeout a user</p>
-    <p>?unmute — remove timeout</p>
-    <p>?slowmode — set channel slowmode</p>
-    <p>?lock — lock the channel</p>
-    <p>?unlock — unlock the channel</p>
-    <p>?addrole — add a role to a user</p>
-    <p>?removerole — remove a role from a user</p>
-    <p>?modlog — set moderation log channel</p>
+    <div class="command-grid">
+      <div class="command"><span>?ban</span> — ban user</div>
+      <div class="command"><span>?kick</span> — kick user</div>
+      <div class="command"><span>?purge</span> — delete messages</div>
+      <div class="command"><span>?warn</span> — warn user</div>
+      <div class="command"><span>?warnings</span> — view warnings</div>
+      <div class="command"><span>?clearwarnings</span> — clear warnings</div>
+      <div class="command"><span>?mute</span> — timeout user</div>
+      <div class="command"><span>?unmute</span> — remove timeout</div>
+      <div class="command"><span>?slowmode</span> — set slowmode</div>
+      <div class="command"><span>?lock</span> — lock channel</div>
+      <div class="command"><span>?unlock</span> — unlock channel</div>
+      <div class="command"><span>?addrole</span> — add role</div>
+      <div class="command"><span>?removerole</span> — remove role</div>
+      <div class="command"><span>?modlog</span> — set mod log</div>
+    </div>
   </div>
-  
-  <div class="card">
+
+  <!-- 🎉 FUN -->
+  <div class="card command-category">
     <h2>🎉 Fun Commands</h2>
-    <p>?8ball — ask the magic 8ball a question</p>
-    <p>?coinflip — flip a coin</p>
-    <p>?dice — roll a dice</p>
-    <p>?rps — play rock paper scissors</p>
-    <p>?meme — get a random meme</p>
-    <p>?joke — get a random joke</p>
+    <div class="command-grid">
+      <div class="command"><span>?8ball</span> — ask question</div>
+      <div class="command"><span>?coinflip</span> — flip coin</div>
+      <div class="command"><span>?dice</span> — roll dice</div>
+      <div class="command"><span>?rps</span> — rock paper scissors</div>
+      <div class="command"><span>?meme</span> — random meme</div>
+      <div class="command"><span>?joke</span> — random joke</div>
+    </div>
   </div>
-  
-  <div class="card">
+
+  <!-- 📚 UTILITY -->
+  <div class="card command-category">
     <h2>📚 Utility Commands</h2>
-    <p>?help — show help</p>
-    <p>?prefix — change the command prefix</p>
+    <div class="command-grid">
+      <div class="command"><span>?help</span> — show help</div>
+      <div class="command"><span>?prefix</span> — change prefix</div>
+    </div>
   </div>
+
 </div>
 
 <script src="script.js"></script>
+
+<script>
+/* 🔍 live search */
+const search = document.getElementById("search");
+search.addEventListener("input", () => {
+  const term = search.value.toLowerCase();
+  document.querySelectorAll(".command").forEach(cmd => {
+    cmd.style.display =
+      cmd.textContent.toLowerCase().includes(term) ? "block" : "none";
+  });
+});
+
+/* 📋 copy on click */
+document.querySelectorAll(".command").forEach(cmd=>{
+  cmd.addEventListener("click", ()=>{
+    const text = cmd.querySelector("span").textContent;
+    navigator.clipboard.writeText(text);
+    cmd.style.borderColor="#00ffae";
+    setTimeout(()=>cmd.style.borderColor="",400);
+  });
+});
+</script>
+
 </body>
 </html>
-
