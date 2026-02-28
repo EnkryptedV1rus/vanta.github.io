@@ -1,95 +1,4 @@
-const canvas = document.createElement("canvas");
-document.body.appendChild(canvas);
-
-const ctx = canvas.getContext("2d");
-
-let stars = [];
-let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-let dpr = window.devicePixelRatio || 1;
-
-function resize() {
-  canvas.width = window.innerWidth * dpr;
-  canvas.height = window.innerHeight * dpr;
-  canvas.style.width = window.innerWidth + "px";
-  canvas.style.height = window.innerHeight + "px";
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-}
-resize();
-window.addEventListener("resize", resize);
-
-window.addEventListener("mousemove", e => {
-  mouse.x = e.clientX;
-  mouse.y = e.clientY;
-
-  // keep your background reactive
-  document.documentElement.style.setProperty("--x", e.clientX + "px");
-  document.documentElement.style.setProperty("--y", e.clientY + "px");
-});
-
-class Star {
-  constructor() {
-    this.reset();
-  }
-
-  reset() {
-    this.x = Math.random() * window.innerWidth;
-    this.y = Math.random() * window.innerHeight;
-    this.size = Math.random() * 1.4 + 0.3;
-    this.speed = Math.random() * 0.15 + 0.05;
-    this.depth = Math.random() * 0.6 + 0.4; // parallax strength
-  }
-
-  update() {
-    // gentle drift
-    this.y += this.speed;
-
-    // parallax toward cursor
-    const dx = (mouse.x - window.innerWidth / 2) * 0.0008 * this.depth;
-    const dy = (mouse.y - window.innerHeight / 2) * 0.0008 * this.depth;
-
-    this.x += dx;
-    this.y += dy;
-
-    // wrap around screen
-    if (this.y > window.innerHeight) {
-      this.y = -2;
-      this.x = Math.random() * window.innerWidth;
-    }
-    if (this.x > window.innerWidth) this.x = 0;
-    if (this.x < 0) this.x = window.innerWidth;
-  }
-
-  draw() {
-    ctx.beginPath();
-    ctx.fillStyle = "rgba(255,255,255,0.8)";
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.fill();
-  }
-}
-
-function initStars() {
-  stars = [];
-  const count = Math.floor(window.innerWidth / 8); // density control
-  for (let i = 0; i < count; i++) {
-    stars.push(new Star());
-  }
-}
-initStars();
-
-function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  stars.forEach(star => {
-    star.update();
-    star.draw();
-  });
-
-  requestAnimationFrame(animate);
-}
-
-animate();
-
-  *{
+*{
   margin:0;
   padding:0;
   box-sizing:border-box;
@@ -115,12 +24,11 @@ body{
   z-index:0;
 }
 
-/* ===== PARTICLE CANVAS ===== */
+/* ===== PARTICLES ===== */
 canvas{
   position:fixed;
   inset:0;
   z-index:1;
   pointer-events:none;
-  opacity:.7;
+  opacity:.75;
 }
-
