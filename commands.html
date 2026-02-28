@@ -56,18 +56,6 @@
   font-weight:700;
 }
 
-/* copy tooltip */
-.command::after{
-  content:"click to copy";
-  position:absolute;
-  right:15px;
-  top:50%;
-  transform:translateY(-50%);
-  font-size:10px;
-  opacity:.5;
-  color:#93c5fd;
-}
-
 /* category spacing */
 .card h2{
   margin-bottom:10px;
@@ -95,6 +83,7 @@
 
   <!-- 🔍 SEARCH -->
   <div class="card search-box">
+    <p>click to copy commands</p>
     <input id="search" placeholder="Search commands… (try: balance, ban, meme)">
   </div>
 
@@ -192,6 +181,7 @@ document.querySelectorAll(".command").forEach(cmd=>{
 
 </body>
 </html>
+
 
 
 
