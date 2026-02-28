@@ -4,18 +4,76 @@
 <meta charset="UTF-8">
 <title>Commands • VANTA</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- Global theme CSS -->
 <link rel="stylesheet" href="styles.css">
 
+<style>
+/* ===== commands page extras ===== */
+
+.search-box{
+  margin-bottom:24px;
+}
+
+.search-box input{
+  width:100%;
+  padding:14px 16px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.08);
+  background:#080808;
+  color:#fff;
+  outline:none;
+  font-size:14px;
+}
+
+.command-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:10px;
+  margin-top:16px;
+}
+
+.command{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  padding:10px 12px;
+  border-radius:10px;
+  font-size:13px;
+  cursor:pointer;
+  transition:.18s ease;
+  position:relative;
+}
+
+.command:hover{
+  border-color:rgba(255,60,90,.6);
+  transform:translateY(-2px);
+  background:rgba(255,60,90,.08);
+}
+
+.command span{
+  color:#ff4d6d;
+  font-weight:700;
+}
+
+/* copy tooltip */
+.command::after{
+  content:"click to copy";
+  position:absolute;
+  right:10px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:10px;
+  opacity:.5;
+}
+
+/* category spacing */
+.card h2{
+  margin-bottom:10px;
+}
+</style>
 </head>
 <body>
 
-<!-- Aurora and background from global CSS -->
 <div class="bg"></div>
-<div class="aurora-bg"></div>
 
-<!-- Topbar / Navbar -->
 <div class="topbar">
   <div style="display:flex;align-items:center;">
     <div class="logo">VANTA <span>CORE</span></div>
@@ -24,20 +82,19 @@
   <div class="nav">
     <a href="index.html">Home</a>
     <a href="dashboard.html">Dashboard</a>
-    <a href="commands.html" class="active">Commands</a>
+    <a href="commands.html">Commands</a>
     <a href="support.html">Support</a>
   </div>
 </div>
 
-<!-- Main page content -->
 <div class="page">
 
-  <!-- 🔍 Search box -->
+  <!-- 🔍 SEARCH -->
   <div class="card search-box">
     <input id="search" placeholder="Search commands… (try: balance, ban, meme)">
   </div>
 
-  <!-- 💰 Economy Commands -->
+  <!-- 💰 ECONOMY -->
   <div class="card command-category">
     <h2>💰 Economy Commands</h2>
     <div class="command-grid">
@@ -60,7 +117,7 @@
     </div>
   </div>
 
-  <!-- 🛡️ Moderation Commands -->
+  <!-- 🛡️ MOD -->
   <div class="card command-category">
     <h2>🛡️ Moderation Commands</h2>
     <div class="command-grid">
@@ -81,7 +138,7 @@
     </div>
   </div>
 
-  <!-- 🎉 Fun Commands -->
+  <!-- 🎉 FUN -->
   <div class="card command-category">
     <h2>🎉 Fun Commands</h2>
     <div class="command-grid">
@@ -94,7 +151,7 @@
     </div>
   </div>
 
-  <!-- 📚 Utility Commands -->
+  <!-- 📚 UTILITY -->
   <div class="card command-category">
     <h2>📚 Utility Commands</h2>
     <div class="command-grid">
@@ -105,11 +162,10 @@
 
 </div>
 
-<!-- Optional: main script.js if you have particles/scroll reveal -->
 <script src="script.js"></script>
 
-<!-- Commands search & copy functionality -->
 <script>
+/* 🔍 live search */
 const search = document.getElementById("search");
 search.addEventListener("input", () => {
   const term = search.value.toLowerCase();
@@ -119,11 +175,12 @@ search.addEventListener("input", () => {
   });
 });
 
+/* 📋 copy on click */
 document.querySelectorAll(".command").forEach(cmd=>{
   cmd.addEventListener("click", ()=>{
     const text = cmd.querySelector("span").textContent;
     navigator.clipboard.writeText(text);
-    cmd.style.borderColor="#60a5fa";
+    cmd.style.borderColor="#00ffae";
     setTimeout(()=>cmd.style.borderColor="",400);
   });
 });
