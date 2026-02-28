@@ -1,109 +1,113 @@
-*{margin:0;padding:0;box-sizing:border-box;font-family:"Inter",system-ui,sans-serif}
+const canvas = document.createElement("canvas");
+document.body.appendChild(canvas);
 
-body{
-  background:#030303;
-  color:#fff;
-  min-height:100vh;
+const ctx = canvas.getContext("2d");
+
+let particles = [];
+let mouse = { x: null, y: null };
+let devicePixelRatio = window.devicePixelRatio || 1;
+
+function resize() {
+  canvas.width = window.innerWidth * devicePixelRatio;
+  canvas.height = window.innerHeight * devicePixelRatio;
+  canvas.style.width = window.innerWidth + "px";
+  canvas.style.height = window.innerHeight + "px";
+  ctx.scale(devicePixelRatio, devicePixelRatio);
+}
+resize();
+window.addEventListener("resize", resize);
+
+window.addEventListener("mousemove", e => {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+  document.documentElement.style.setProperty("--x", e.clientX + "px");
+  document.documentElement.style.setProperty("--y", e.clientY + "px");
+});
+
+class Particle {
+  constructor() {
+    this.reset();
+  }
+
+  reset() {
+    this.x = Math.random() * window.innerWidth;
+    this.y = Math.random() * window.innerHeight;
+    this.size = Math.random() * 2 + 0.5;
+    this.speedX = (Math.random() - 0.5) * 0.4;
+    this.speedY = (Math.random() - 0.5) * 0.4;
+    this.opacity = Math.random() * 0.6 + 0.2;
+  }
+
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+
+    if (this.x < 0 || this.x > window.innerWidth ||
+        this.y < 0 || this.y > window.innerHeight) {
+      this.reset();
+    }
+
+    // Subtle attraction to cursor
+    if (mouse.x && mouse.y) {
+      let dx = this.x - mouse.x;
+      let dy = this.y - mouse.y;
+      let dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < 120) {
+        this.x += dx * 0.01;
+        this.y += dy * 0.01;
+      }
+    }
+  }
+
+  draw() {
+    ctx.beginPath();
+    ctx.fillStyle = `rgba(255, 0, 60, ${this.opacity})`;
+    ctx.shadowColor = "rgba(255,0,60,.8)";
+    ctx.shadowBlur = 10;
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
 }
 
-/* ===== BACKGROUND ===== */
-.bg{
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(circle at var(--x,50%) var(--y,50%),
-      rgba(255,0,60,.15),
-      transparent 45%),
-    linear-gradient(140deg,#030303,#0a0a0a,#030303);
-  background-size:200% 200%;
-  animation:bgShift 20s ease infinite;
-  z-index:0;
+function initParticles() {
+  particles = [];
+  const count = Math.floor(window.innerWidth / 10);
+  for (let i = 0; i < count; i++) {
+    particles.push(new Particle());
+  }
+}
+initParticles();
+
+function connectParticles() {
+  for (let a = 0; a < particles.length; a++) {
+    for (let b = a; b < particles.length; b++) {
+      let dx = particles[a].x - particles[b].x;
+      let dy = particles[a].y - particles[b].y;
+      let dist = dx * dx + dy * dy;
+
+      if (dist < 10000) {
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(255,0,60,${1 - dist / 10000})`;
+        ctx.lineWidth = 0.5;
+        ctx.moveTo(particles[a].x, particles[a].y);
+        ctx.lineTo(particles[b].x, particles[b].y);
+        ctx.stroke();
+      }
+    }
+  }
 }
 
-@keyframes bgShift{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  particles.forEach(p => {
+    p.update();
+    p.draw();
+  });
+
+  connectParticles();
+  requestAnimationFrame(animate);
 }
 
-/* ===== PARTICLES ===== */
-canvas{
-  position:fixed;
-  inset:0;
-  z-index:1;
-  pointer-events:none;
-  opacity:.45;
-}
-
-/* ===== NAVBAR ===== */
-.topbar{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:64px;
-  backdrop-filter:blur(20px);
-  background:rgba(8,8,8,.85);
-  border-bottom:1px solid rgba(255,255,255,.06);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 28px;
-  z-index:9999;
-}
-
-.logo{
-  font-size:22px;
-  font-weight:900;
-  letter-spacing:2px;
-}
-
-.logo span{color:#ff3b5c}
-
-.premium{
-  font-size:11px;
-  font-weight:800;
-  padding:6px 14px;
-  border-radius:999px;
-  background:linear-gradient(135deg,#b9f2ff,#ffffff,#9adfff);
-  color:#000;
-  box-shadow:0 0 20px rgba(185,242,255,.6);
-  margin-left:14px;
-}
-
-.nav{display:flex;gap:18px}
-.nav a{color:#aaa;text-decoration:none;font-size:14px;transition:.25s}
-.nav a:hover{color:#fff}
-
-/* ===== PAGE LAYOUT ===== */
-.page{
-  position:relative;
-  z-index:2;
-  padding-top:120px;
-  max-width:1100px;
-  margin:auto;
-  padding-left:20px;
-  padding-right:20px;
-}
-
-.card{
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:20px;
-  padding:28px;
-  margin-bottom:24px;
-}
-
-.btn{
-  padding:14px 28px;
-  border-radius:999px;
-  border:none;
-  font-weight:700;
-  cursor:pointer;
-  color:white;
-  background:linear-gradient(90deg,#ff3b5c,#ff0000);
-  background-size:200%;
-  transition:.3s;
-}
-.btn:hover{background-position:right;transform:scale(1.05)}
-
+animate();
