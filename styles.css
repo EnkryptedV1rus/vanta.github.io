@@ -3,16 +3,16 @@ document.body.appendChild(canvas);
 
 const ctx = canvas.getContext("2d");
 
-let particles = [];
-let mouse = { x: null, y: null };
-let devicePixelRatio = window.devicePixelRatio || 1;
+let stars = [];
+let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+let dpr = window.devicePixelRatio || 1;
 
 function resize() {
-  canvas.width = window.innerWidth * devicePixelRatio;
-  canvas.height = window.innerHeight * devicePixelRatio;
+  canvas.width = window.innerWidth * dpr;
+  canvas.height = window.innerHeight * dpr;
   canvas.style.width = window.innerWidth + "px";
   canvas.style.height = window.innerHeight + "px";
-  ctx.scale(devicePixelRatio, devicePixelRatio);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 }
 resize();
 window.addEventListener("resize", resize);
@@ -20,11 +20,13 @@ window.addEventListener("resize", resize);
 window.addEventListener("mousemove", e => {
   mouse.x = e.clientX;
   mouse.y = e.clientY;
+
+  // keep your background reactive
   document.documentElement.style.setProperty("--x", e.clientX + "px");
   document.documentElement.style.setProperty("--y", e.clientY + "px");
 });
 
-class Particle {
+class Star {
   constructor() {
     this.reset();
   }
@@ -32,81 +34,56 @@ class Particle {
   reset() {
     this.x = Math.random() * window.innerWidth;
     this.y = Math.random() * window.innerHeight;
-    this.size = Math.random() * 2 + 0.5;
-    this.speedX = (Math.random() - 0.5) * 0.4;
-    this.speedY = (Math.random() - 0.5) * 0.4;
-    this.opacity = Math.random() * 0.6 + 0.2;
+    this.size = Math.random() * 1.4 + 0.3;
+    this.speed = Math.random() * 0.15 + 0.05;
+    this.depth = Math.random() * 0.6 + 0.4; // parallax strength
   }
 
   update() {
-    this.x += this.speedX;
-    this.y += this.speedY;
+    // gentle drift
+    this.y += this.speed;
 
-    if (this.x < 0 || this.x > window.innerWidth ||
-        this.y < 0 || this.y > window.innerHeight) {
-      this.reset();
+    // parallax toward cursor
+    const dx = (mouse.x - window.innerWidth / 2) * 0.0008 * this.depth;
+    const dy = (mouse.y - window.innerHeight / 2) * 0.0008 * this.depth;
+
+    this.x += dx;
+    this.y += dy;
+
+    // wrap around screen
+    if (this.y > window.innerHeight) {
+      this.y = -2;
+      this.x = Math.random() * window.innerWidth;
     }
-
-    // Subtle attraction to cursor
-    if (mouse.x && mouse.y) {
-      let dx = this.x - mouse.x;
-      let dy = this.y - mouse.y;
-      let dist = Math.sqrt(dx * dx + dy * dy);
-
-      if (dist < 120) {
-        this.x += dx * 0.01;
-        this.y += dy * 0.01;
-      }
-    }
+    if (this.x > window.innerWidth) this.x = 0;
+    if (this.x < 0) this.x = window.innerWidth;
   }
 
   draw() {
     ctx.beginPath();
-    ctx.fillStyle = `rgba(255, 0, 60, ${this.opacity})`;
-    ctx.shadowColor = "rgba(255,0,60,.8)";
-    ctx.shadowBlur = 10;
+    ctx.fillStyle = "rgba(255,255,255,0.8)";
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
     ctx.fill();
   }
 }
 
-function initParticles() {
-  particles = [];
-  const count = Math.floor(window.innerWidth / 10);
+function initStars() {
+  stars = [];
+  const count = Math.floor(window.innerWidth / 8); // density control
   for (let i = 0; i < count; i++) {
-    particles.push(new Particle());
+    stars.push(new Star());
   }
 }
-initParticles();
-
-function connectParticles() {
-  for (let a = 0; a < particles.length; a++) {
-    for (let b = a; b < particles.length; b++) {
-      let dx = particles[a].x - particles[b].x;
-      let dy = particles[a].y - particles[b].y;
-      let dist = dx * dx + dy * dy;
-
-      if (dist < 10000) {
-        ctx.beginPath();
-        ctx.strokeStyle = `rgba(255,0,60,${1 - dist / 10000})`;
-        ctx.lineWidth = 0.5;
-        ctx.moveTo(particles[a].x, particles[a].y);
-        ctx.lineTo(particles[b].x, particles[b].y);
-        ctx.stroke();
-      }
-    }
-  }
-}
+initStars();
 
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  particles.forEach(p => {
-    p.update();
-    p.draw();
+  stars.forEach(star => {
+    star.update();
+    star.draw();
   });
 
-  connectParticles();
   requestAnimationFrame(animate);
 }
 
