@@ -5,6 +5,59 @@
 <title>Dashboard • Kaito</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="styles.css">
+
+<style>
+/* ===== Stats Layout ===== */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  margin-top: 25px;
+}
+
+.stat-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+  transition: all .25s ease;
+  backdrop-filter: blur(6px);
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  border-color: #60a5fa;
+  box-shadow: 0 10px 30px rgba(96,165,250,.15);
+}
+
+.stat-number {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.stat-label {
+  opacity: .7;
+  font-size: .9rem;
+}
+
+/* uptime bar */
+.uptime-bar {
+  height: 6px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 999px;
+  margin-top: 12px;
+  overflow: hidden;
+}
+
+.uptime-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg,#60a5fa,#22c55e);
+  transition: width 1.2s ease;
+}
+</style>
 </head>
 <body>
 
@@ -17,7 +70,7 @@
   </div>
   <div class="nav">
     <a href="index.html">Home</a>
-    <a href="dashboard.html">Dashboard</a>
+    <a href="dashboard.html" class="active">Dashboard</a>
     <a href="commands.html">Commands</a>
     <a href="support.html">Support</a>
   </div>
@@ -25,25 +78,67 @@
 
 <div class="page">
   <div class="card">
-    <h2>Live Stats</h2>
-    <div style="display:flex;gap:40px;margin-top:20px;">
-      <div>
+    <h2>📊 Live Stats</h2>
+
+    <div class="stats">
+      
+      <div class="stat-card">
         <div class="stat-number" data-target="125000">0</div>
-        <small>Users</small>
+        <div class="stat-label">Users</div>
       </div>
-      <div>
+
+      <div class="stat-card">
         <div class="stat-number" data-target="890">0</div>
-        <small>Servers</small>
+        <div class="stat-label">Servers</div>
       </div>
-      <div>
+
+      <div class="stat-card">
         <div class="stat-number" data-target="99">0</div>
-        <small>% Uptime</small>
+        <div class="stat-label">Uptime</div>
+        <div class="uptime-bar">
+          <div class="uptime-fill" id="uptimeFill"></div>
+        </div>
       </div>
+
     </div>
   </div>
 </div>
 
-<script src="script.js"></script>
+<script>
+// ===== Count animation =====
+function animateStats() {
+  document.querySelectorAll(".stat-number").forEach(el => {
+    const target = +el.dataset.target;
+    const duration = 1200;
+    const start = 0;
+    const startTime = performance.now();
+
+    function update(now) {
+      const progress = Math.min((now - startTime) / duration, 1);
+      const value = Math.floor(progress * target);
+
+      el.textContent =
+        target >= 1000 ? value.toLocaleString() : value;
+
+      if (progress < 1) requestAnimationFrame(update);
+    }
+
+    requestAnimationFrame(update);
+  });
+
+  // uptime bar
+  const uptime = document.querySelector(
+    '.stat-number[data-target="99"]'
+  ).dataset.target;
+
+  setTimeout(() => {
+    document.getElementById("uptimeFill").style.width = uptime + "%";
+  }, 300);
+}
+
+// run when visible
+window.addEventListener("load", animateStats);
+</script>
+
 </body>
 </html>
-
