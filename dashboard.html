@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Commands • VANTA</title>
+<title>Dashboard • VANTA</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -25,11 +25,21 @@
 
 <div class="page">
   <div class="card">
-    <h2>Core Commands</h2>
-    <p>?help — show help</p>
-    <p>?balance — check money</p>
-    <p>?work — earn coins</p>
-    <p>?ban — moderation</p>
+    <h2>Live Stats</h2>
+    <div style="display:flex;gap:40px;margin-top:20px;">
+      <div>
+        <div class="stat-number" data-target="125000">0</div>
+        <small>Users</small>
+      </div>
+      <div>
+        <div class="stat-number" data-target="890">0</div>
+        <small>Servers</small>
+      </div>
+      <div>
+        <div class="stat-number" data-target="99">0</div>
+        <small>% Uptime</small>
+      </div>
+    </div>
   </div>
 </div>
 
